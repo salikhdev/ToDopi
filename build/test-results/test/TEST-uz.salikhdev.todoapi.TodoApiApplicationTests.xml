@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="uz.salikhdev.todoapi.TodoApiApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-02-06T13:45:05" hostname="SALIKHDEV" time="0.94">
+  <properties/>
+  <testcase name="contextLoads()" classname="uz.salikhdev.todoapi.TodoApiApplicationTests" time="0.94"/>
+  <system-out><![CDATA[18:45:02.522 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [uz.salikhdev.todoapi.TodoApiApplicationTests]: TodoApiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:45:02.683 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration uz.salikhdev.todoapi.TodoApiApplication for test class uz.salikhdev.todoapi.TodoApiApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2025-02-06T18:45:03.205+05:00  INFO 26308 --- [Todo Api] [    Test worker] u.s.todoapi.TodoApiApplicationTests      : Starting TodoApiApplicationTests using Java 17.0.12 with PID 26308 (started by salikhdev in C:\Users\Asus\IdeaProjects\Todo Api)
+2025-02-06T18:45:03.207+05:00  INFO 26308 --- [Todo Api] [    Test worker] u.s.todoapi.TodoApiApplicationTests      : No active profile set, falling back to 1 default profile: "default"
+2025-02-06T18:45:05.402+05:00  INFO 26308 --- [Todo Api] [    Test worker] u.s.todoapi.TodoApiApplicationTests      : Started TodoApiApplicationTests in 2.494 seconds (process running for 3.681)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
