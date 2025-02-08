@@ -1,21 +1,33 @@
 package uz.salikhdev.todoapi.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity(name = "my_todo")
 public class Todo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
     private String description;
-    private Boolean iscomplated;
-    private LocalDateTime createAt;
+
+    @Column(name = "is_completed")
+    private Boolean isCompleted = false;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "delete_at")
     private LocalDateTime deleteAt;
 }

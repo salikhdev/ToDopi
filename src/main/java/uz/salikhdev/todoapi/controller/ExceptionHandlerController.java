@@ -4,36 +4,37 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import uz.salikhdev.todoapi.dto.MessageErrorDto;
-import uz.salikhdev.todoapi.exception.DeleteException;
+import uz.salikhdev.todoapi.dao.MessageDto;
+import uz.salikhdev.todoapi.exception.ArgumentException;
 import uz.salikhdev.todoapi.exception.TodoNotFound;
-import uz.salikhdev.todoapi.exception.UpdateException;
 
 @RestControllerAdvice
 public class ExceptionHandlerController {
 
-
-    @ExceptionHandler(TodoNotFound.class)
-    public ResponseEntity<MessageErrorDto> handlerTodoNotFoundException(TodoNotFound e) {
-        MessageErrorDto message = new MessageErrorDto(
-                false,
-                e.getMessage(),
-                HttpStatus.NOT_FOUND.value()
-        );
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    @ExceptionHandler({TodoNotFound.class})
+    public ResponseEntity<MessageDto> handleTodoNotFound(Exception e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(MessageDto
+                        .builder()
+                        .message(e.getMessage())
+                        .code(HttpStatus.NOT_FOUND.value())
+                        .status(false)
+                        .build()
+                );
     }
 
-    @ExceptionHandler({UpdateException.class, DeleteException.class})
-    public ResponseEntity<MessageErrorDto> handlerServerErrors(Exception e) {
-        MessageErrorDto message = new MessageErrorDto(
-                false,
-                e.getMessage(),
-                HttpStatus.INTERNAL_SERVER_ERROR.value()
-        );
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+    @ExceptionHandler({ArgumentException.class})
+    public ResponseEntity<MessageDto> handleArgumentException(Exception e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(MessageDto
+                        .builder()
+                        .message(e.getMessage())
+                        .code(HttpStatus.BAD_REQUEST.value())
+                        .status(false)
+                        .build()
+                );
     }
-
 
 }

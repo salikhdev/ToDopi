@@ -4,45 +4,54 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uz.salikhdev.todoapi.dto.MessageDto;
+import uz.salikhdev.todoapi.dao.MessageDto;
+import uz.salikhdev.todoapi.dao.TodoCreateDto;
 import uz.salikhdev.todoapi.entity.Todo;
 import uz.salikhdev.todoapi.service.TodoService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/todos")
+@RequestMapping("/api/todo")
 @RequiredArgsConstructor
 public class TodoController {
 
-    private final TodoService service;
+    private final TodoService todoService;
 
-    @PostMapping
-    public ResponseEntity<MessageDto> createTodo(@RequestBody Todo todo) {
-        service.saveTodo(todo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageDto("Todo added successfully!"));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Todo>> getAllTodos() {
-        var todos = service.getAllTodos();
-        return ResponseEntity.ok(todos);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Todo> getTodo(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findTodoById(id));
+        return ResponseEntity.ok(todoService.getTodoById(id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<MessageDto> editTodo(@PathVariable Long id, @RequestBody Todo todo) {
-        service.updateTodo(id, todo);
-        return ResponseEntity.ok(new MessageDto("Update is success !!"));
+    @PostMapping
+    public ResponseEntity<MessageDto> save(@RequestBody TodoCreateDto todo) {
+        todoService.createTodo(todo);
+        return ResponseEntity.ok(
+                MessageDto.builder()
+                        .message("Todo is created")
+                        .status(true)
+                        .code(HttpStatus.CREATED.value())
+                        .build()
+        );
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Todo>> getAll() {
+        return ResponseEntity.ok(todoService.getAll());
+    }
+
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MessageDto> deleteTodo(@PathVariable Long id) {
-        service.deleteTodo(id);
-        return ResponseEntity.ok(new MessageDto("Delete is success !!"));
+    public ResponseEntity<MessageDto> delete(@PathVariable Long id) {
+        todoService.delete(id);
+        return ResponseEntity.ok(
+                MessageDto.builder()
+                        .message("Todo is deleted")
+                        .status(true)
+                        .code(HttpStatus.NO_CONTENT.value())
+                        .build()
+        );
     }
+
 }
